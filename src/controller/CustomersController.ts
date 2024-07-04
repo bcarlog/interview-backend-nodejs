@@ -6,9 +6,6 @@ export class CustomersController {
   constructor(private service: CustomersService) {}
 
   async findByFilter(event: APIGatewayProxyEvent) {
-    // if (!event.queryStringParameters?.name) {
-    //   return this.apiResponseBadRequestError();
-    // }
     const name = event.queryStringParameters?.name;
     const lastName = event.queryStringParameters?.lastName;
 
@@ -16,13 +13,6 @@ export class CustomersController {
       await this.service.findByFilter(new Customer({ name, lastName }))
     );
   }
-
-  // apiResponseBadRequestError() {
-  //   return {
-  //     statusCode: 400,
-  //     isBase64Encoded: false,
-  //   };
-  // }
 
   apiResponseOk(customers: Customer[]) {
     return {
