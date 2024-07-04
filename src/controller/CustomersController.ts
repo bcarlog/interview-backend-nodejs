@@ -14,6 +14,13 @@ export class CustomersController {
     );
   }
 
+  apiResponseBadRequestError() {
+    return {
+      statusCode: 400,
+      isBase64Encoded: false,
+    };
+  }
+
   apiResponseOk(customers: Customer[]) {
     return {
       statusCode: 200,
