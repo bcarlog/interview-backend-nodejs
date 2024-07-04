@@ -13,6 +13,7 @@ describe('CustomersServiceImpl', () => {
               id: 'customerId',
               name: 'name',
               lastName: 'lastName',
+              fullName: 'fullName',
             },
           ])
         ),
@@ -21,7 +22,7 @@ describe('CustomersServiceImpl', () => {
       const service = new CustomersServiceImpl(repository);
 
       // Execute
-      const response = await service.findByFilter(new Customer({ name: 'A' }));
+      const response = await service.findByFilter(new Customer({ name: 'A', lastName: 'L' }));
 
       // Validate
       expect(response).toEqual([
@@ -29,11 +30,13 @@ describe('CustomersServiceImpl', () => {
           id: 'customerId',
           name: 'name',
           lastName: 'lastName',
+          fullName: 'fullName',
           email: 'nlastName@ihfintech.com.pe',
         },
       ]);
       expect(repository.findByFilter).toBeCalledWith({
         name: 'A',
+        lastName: 'L',
       });
     });
   });

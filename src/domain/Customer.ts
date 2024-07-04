@@ -5,6 +5,8 @@ export class Customer {
 
   lastName: string;
 
+  fullName: string;
+
   email: string;
 
   constructor(data?: Partial<Customer>) {

@@ -21,15 +21,24 @@ export class CustomersRepositoryImpl implements CustomersRepository {
     }
 
     return result.data.results
-      .filter((item: RandomUser) =>
-        item.name.first.toLowerCase().startsWith(customer.name.toLowerCase())
-      )
+      .filter((item: RandomUser) => {
+        let filterName = true
+        let filterLast = true
+        if (customer.name) {
+          filterName = item.name.first.toLowerCase().includes(customer.name.toLowerCase())
+        }
+        if (customer.lastName) {
+          filterLast = item.name.last.toLowerCase().includes(customer.lastName.toLowerCase())
+        }
+        return filterName && filterLast
+      })
       .map(
         (item: RandomUser) =>
           new Customer({
             id: item.id.value,
             name: item.name.first,
             lastName: item.name.last,
+            fullName: `${item.name.first} ${item.name.last}`
           })
       );
   }

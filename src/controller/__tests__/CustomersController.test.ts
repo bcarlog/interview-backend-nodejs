@@ -13,6 +13,7 @@ describe('CustomersController', () => {
               id: 'customerId',
               name: 'name',
               lastName: 'lastName',
+              fullName: 'fullName',
               email: 'email',
             },
           ])
@@ -27,6 +28,7 @@ describe('CustomersController', () => {
         resource: '/customers',
         queryStringParameters: {
           name: 'A',
+          lastName: 'L'
         },
       } as unknown as APIGatewayProxyEvent);
 
@@ -34,10 +36,11 @@ describe('CustomersController', () => {
       expect(response).toEqual({
         statusCode: 200,
         isBase64Encoded: false,
-        body: '[{"id":"customerId","name":"name","lastName":"lastName","email":"email"}]',
+        body: '[{"id":"customerId","name":"name","lastName":"lastName","fullName":"fullName","email":"email"}]',
       });
       expect(service.findByFilter).toBeCalledWith({
         name: 'A',
+        lastName: 'L',
       });
     });
   });
